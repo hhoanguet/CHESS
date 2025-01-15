@@ -20,7 +20,6 @@ from database_utils.db_catalog.csv_utils import load_tables_description
 
 load_dotenv(override=True)
 DB_ROOT_PATH = Path(os.getenv("DB_ROOT_PATH"))
-
 INDEX_SERVER_HOST = os.getenv("INDEX_SERVER_HOST")
 INDEX_SERVER_PORT = int(os.getenv("INDEX_SERVER_PORT"))
 

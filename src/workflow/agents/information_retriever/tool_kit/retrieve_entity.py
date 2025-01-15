@@ -145,7 +145,7 @@ class RetrieveEntity(Tool):
             keyword = keyword.strip()
             potential_column_names.append(keyword)
 
-            column, value = self._column_value(keyword)
+            column, value = self._column_value(keyword) # Splits a string into column and value parts if it contains '='.
             if column:
                 potential_column_names.append(column)
 
@@ -196,8 +196,8 @@ class RetrieveEntity(Tool):
         Returns:
             Dict[str, Dict[str, List[str]]]: A dictionary mapping table and column names to similar entities.
         """
-        to_seartch_values = self._get_to_search_values(keywords)
-        similar_entities_via_LSH = self._get_similar_entities_via_LSH(to_seartch_values)
+        to_search_values = self._get_to_search_values(keywords)
+        similar_entities_via_LSH = self._get_similar_entities_via_LSH(to_search_values)
         similar_entities_via_edit_distance = self._get_similar_entities_via_edit_distance(similar_entities_via_LSH)
         similar_entities_via_embedding = self._get_similar_entities_via_embedding(similar_entities_via_edit_distance)
         

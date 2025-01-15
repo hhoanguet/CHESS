@@ -93,6 +93,15 @@ ENGINE_CONFIGS: Dict[str, Dict[str, Any]] = {
         "constructor": ChatOpenAI,
         "params": {"model": "gpt-4o-mini", "temperature": 0}
     },
+    "custom-llama": {
+        "constructor": ChatOpenAI,
+        "params": {
+            "model": "Llama-3.3-70B-Instruct",
+            "openai_api_key": "EMPTY",
+            "openai_api_base": "http://localhost:8264/v1",
+            "temperature": 0,
+        }
+    },
     "claude-3-opus-20240229": {
         "constructor": ChatAnthropic,
         "params": {"model": "claude-3-opus-20240229", "temperature": 0}
