@@ -18,6 +18,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument('--data_mode', type=str, required=True, help="Mode of the data to be processed.")
     parser.add_argument('--data_path', type=str, required=True, help="Path to the data file.")
     parser.add_argument('--db_id', type=str, default='all', help="Database ID or 'all' to process all databases")
+    parser.add_argument('--from_question_id', type=int, default=0, help="Question ID to start from.")
     parser.add_argument('--config', type=str, required=True, help="Path to the configuration file.")
     parser.add_argument('--num_workers', type=int, default=1, help="Number of workers to use.")
     parser.add_argument('--log_level', type=str, default='warning', help="Logging level.")
@@ -52,6 +53,8 @@ def main():
     dataset = load_dataset(args.data_path)
     if args.db_id != 'all':
         dataset = [d for d in dataset if d['db_id'] == args.db_id]
+    if args.from_question_id != 0:
+        dataset = [d for d in dataset if d['question_id'] >= args.from_question_id]
     run_manager = RunManager(args)
     run_manager.initialize_tasks(dataset)
     run_manager.run_tasks()
