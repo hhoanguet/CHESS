@@ -17,6 +17,7 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the pipeline with the specified configuration.")
     parser.add_argument('--data_mode', type=str, required=True, help="Mode of the data to be processed.")
     parser.add_argument('--data_path', type=str, required=True, help="Path to the data file.")
+    parser.add_argument('--db_id', type=str, default='all', help="Database ID or 'all' to process all databases")
     parser.add_argument('--config', type=str, required=True, help="Path to the configuration file.")
     parser.add_argument('--num_workers', type=int, default=1, help="Number of workers to use.")
     parser.add_argument('--log_level', type=str, default='warning', help="Logging level.")
@@ -49,7 +50,8 @@ def main():
     """
     args = parse_arguments()
     dataset = load_dataset(args.data_path)
-
+    if args.db_id != 'all':
+        dataset = [d for d in dataset if d['db_id'] == args.db_id]
     run_manager = RunManager(args)
     run_manager.initialize_tasks(dataset)
     run_manager.run_tasks()
